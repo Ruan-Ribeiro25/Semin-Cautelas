@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="/public/CSS/home/cautela.css" />
+    <title>Formulário de Cautela</title>
+  </head>
+  <body>
+    <style>
+      .row {
+    display: flex;
+    margin: 0px 22%;
+  }
+
+  .column {
+    flex: 1;
+    margin: 0 5px;
+  }
+
+  #outros{
+    margin-top: 53%;
+    margin-bottom: 25%;
+    width: 65%;
+  }
+
+        :root{
+            --color-dark1: rgb(39, 39, 39);
+            --color-dark2: #2d2d2d;
+            --color-dark3: #414141;
+            --color-dark4: #1c1c1c;
+            --color-dark5: #343434;
+            --color-purple: #0c466d;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .img_logo_header{
+            width: 135px;
+        }
+        .header,
+        .navigation_header{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .header{
+            justify-content: space-between;
+            padding: 0 10%;
+            height: 0 0em;
+            margin-top: -30px;
+
+        }
+        .navigation_header{
+            gap: 3em;
+            z-index: 2;
+        }
+        .content{
+            padding-top: 5em;
+            text-align: center;
+            height: 100vh;
+            transition: 1s;
+        }
+        .navigation_header a{
+            text-decoration: none;
+            color: var(--color-purple);
+            transition: 1s;
+            font-weight: bold;
+        }
+        .navigation_header a:hover{
+            color: var(--color-white);
+        }
+        .active{
+            background: var(--color-dark3);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .btn_icon_header{
+            background: transparent;
+            border: none;
+            color: var(--color-white);
+            cursor: pointer;
+            display: none;
+        }
+       
+        @media screen and (max-width: 768px) {
+            .navigation_header{
+                position: absolute;
+                flex-direction: column !important;
+                top: 0;
+                background: var(--color-dark5);
+                height: 100%;
+                width: 35vw;
+                padding: 1em;
+                animation-duration: 1s;
+                margin-left: -100vw;
+            }
+            .btn_icon_header{
+                display: block;
+            }
+        }
+        @keyframes showSidebar {
+            from {margin-left: -100vw;}
+            to {margin-left: -10vw;}
+        }
+    </style>
+</head>
+<body id="body">
+    <div class="header" id="header">
+        <button onclick="toggleSidebar()" class="btn_icon_header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+        </button>
+        <div class="logo_header">
+          <a href="/public/home.html"> <img src="img/logo-att.png" alt= "Logo.att" class="img_logo_header"></a>
+        </div>
+        <div class="navigation_header" id="navigation_header">
+            <button onclick="toggleSidebar()" class="btn_icon_header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+            <a href="/public/cautelaCelular.html"> Voltar</a>
+            <a href="/public/exibirCautelaCelular.html">Cautela Celulares</a>
+            <a href="/public/exibirCautelaNotebook.html">Cautela de Notebook</a>
+            <a href="/public/exibirCautelaTablet.html">Cautela de Tablet</a>
+            <a href="/public/exibirCautelaOutros.html">Outras Cautelas</a>
+        </div>
+    </div>
+    <div id="cabecalho">
+      <img src="https://cdn.discordapp.com/attachments/1135925579183558699/1235965232577380447/image.png?ex=66442192&is=6642d012&hm=a67b57f20dc9b703b0b546dcaa8f0a40c409f4bafe313033e901a84827d1aff5&" alt="">
+  </div>
+  <div>
+    
+    <h1 id="heading">Cautela de Tablet</h1>
+  </div>
+
+    
+    
+  <div id="smartphoneSection" class="device-section">
+    <form id="cautelaForm" action="/inserirDadosTablet" method="POST">
+      
+      <!-- <input type="radio" name="cautela" value="notebook"> Cautelas Notebook
+        <input type="radio" name="cautela" value="tablet"> Cautelas Tablet -->
+        
+        
+        
+        
+        <label for="numeroCautela">Número da Cautela:</label>
+        <input type="text" id="numeroCautela" name="numeroCautela" readonly/>
+        <br>
+        <label for="nome">Recebedor:</label>
+        <br>
+        <input type="text" id="nome" name="nome"  /><br />
+        <br>
+        <label for="nomeentregador">Emitente:</label>
+        <input type="text" id="nomeentregador" name="nomeentregador" /><br />
+        <label for="matricula">Matrícula: (Recebedor)</label>
+        <input type="text" id="matricula" name="matricula"   /><br />
+        <br>
+        <br>
+          <label for="funcao">Função:</label>
+          <br>
+          <select name="funcao" id="funcao">
+              <option value="secretaria">Clique para Selecionar</option>
+              <option value="Servidor (a)">Servidor (a)</option>
+             <option value="Secretário (a)">Secretario (a)</option>
+             <option value="Estagiário (a)">Estagiário (a)</option>
+             <option value="Cordenador (a)">Cordenador (a)</option>
+             <option value="Diretor (a)">Diretor (a)</option>
+             <option value="Acessor (a)">Acessor (a)</option>
+             <option value="Advogado (a)">Advogado (a)</option>
+             <option value="Eengenheiro (a)">Engenheiro (a)</option>
+             <option value="Administrador (a)">Administrador (a)</option>
+             <option value="Enfermeiro (a)">Enfermeiro (a)</option>
+             <option value="Fiscal de Saúde">Fiscal de Saúde</option>
+             <option value="Agente Admnistrativo">Agente Admnistrativo</option>
+             <option value="Acessores Especiais">Acessores Especiais</option>
+             <option value="Topografo">Topografo (a)</option>
+             <option value="Técnico (a) de enfermagem">Técnico(a) de enfermagem</option>
+             <option value="Medico (a)">Médico (a)</option>
+             <option value="Fisioterapeuta">Fisioterapeuta</option>
+  
+          </select>
+          <br>
+          <label for="secretaria">Secretaria:</label>
+          <br>
+          <select id="secretaria" name="secretaria">
+            <option value="secretaria">Clique para Selecionar</option>
+            <option value="SEMAD">Secretaria Municipal de Administração</option>
+            <option value="SEMAG">Secretaria Municipal de Agricultura</option>
+            <option value="SEMICT">Secretaria Municipal de Ciências, Tecnologia, Indústria e Comércio</option>
+            <option value="SECOM">Secretaria Municipal de Comunicação Social</option>
+            <option value="SMCGG">Secretaria Municipal de Coordenação Geral e Gestão</option>
+            <option value="SECUT">Secretaria Municipal de Cultura e Turismo</option>
+            <option value="SEMDS">Secretaria Municipal de Defesa Social</option>
+            <option value="SEMAS">Secretaria Municipal de Desenvolvimento Social</option>
+            <option value="SEMED">Secretaria Municipal de Educação</option>
+            <option value="SEMEL">Secretaria Municipal de Esportes e Lazer</option>
+            <option value="SEMFI">Secretaria Municipal de Finanças</option>
+            <option value="SEMUG">Secretaria Municipal de Governo</option>
+            <option value="SEMIN">Secretaria Municipal de Informática</option>
+            <option value="SEMEA">Secretaria Municipal de Meio Ambiente</option>
+            <option value="SEMUP">Secretaria Municipal de Planejamento</option>
+            <option value="SEMOB">Secretaria Municipal de Obras</option>
+            <option value="SEMSA">Secretaria Municipal de Saúde</option>
+            <option value="PROJU">Procuradoria Juridica</option>
+          </select>
+          <br>
+          <label for="departamento">Departamento:</label>
+          <br>
+          <input type="text" id="departamento" name="departamento"  /><br />
+  
+          <br>
+          <label for="email">Email:</label>
+          <br>
+          <br>
+          <br>
+          <input type="email" id="email" name="email"  /><br />
+
+          <div class="row">
+            <div class="column">
+              <div class="gender-group">
+                <div class="gender-input">
+                  <input
+                    id="retiradadeaparelhoechip"
+                    type="radio"
+                    name="retiradadeaparelhoechip"
+                    value="retiradadeaparelhoechip"
+                  />
+                  <label for="retiradadeaparelhoechip">Retirada de Aparelho e Chip</label>
+                </div>
+          
+                <div class="gender-input">
+                  <input
+                    id="retiradadeaparelho"
+                    type="radio"
+                    name="retiradadeaparelho"
+                    value="retiradadeaparelho"
+                  />
+                  <label for="retiradadeaparelho">Retirada de Aparelho</label>
+                </div>
+          
+                <div class="gender-input">
+                  <input id="retiradadechip" type="radio" name="retiradadechip" value="retiradadechip" />
+                  <label for="retiradadechip">Retirada de Chip</label>
+                </div>
+              </div>
+            </div>
+          
+            <div class="column">
+              <div class="gender-group">
+                <div class="gender-input">
+                  <label for="outros">Outros</label>
+                  <input id="outros" type="text" name="outros" />
+                </div>
+              </div>
+            </div>
+          
+            <div class="column">
+              <div class="gender-group">
+                <div class="gender-input">
+                  <input
+                    id="devolucaodeaparelhoechip"
+                    type="radio"
+                    name="devolucaodeaparelhoechip"
+                    value="devolucaodeaparelhoechip"
+                  />
+                  <label for="devolucaodeaparelhoechip">Devolução de Aparelho e Chip</label>
+                </div>
+          
+                <div class="gender-input">
+                  <input
+                    id="devolucaodeaparelho"
+                    type="radio"
+                    name="devolucaodeaparelho"
+                    value="devolucaodeaparelho"
+                  />
+                  <label for="devolucaodeaparelho">Devolução de Aparelho</label>
+                </div>
+          
+                <div class="gender-input">
+                  <input id="devolucaodechip" type="radio" name="devolucaodechip" value="devolucaodechip" />
+                  <label for="devolucaodechip">Devolução de Chip</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <label for="tipoCautela">Discriminação</label>
+          <br>
+          <input type="text" id="tipoCautela" name="discriminacao" /><br />
+
+          <label for="patrimonio">IMEI:</label>
+          <br>
+          <input type="text" id="patrimonio" name="patrimonio"  /><br />
+
+          <label for="numero">Número do Chip:</label>
+          <br>
+          <input type="text" id="numero" name="numeroChip"  /><br />
+     
+
+          <label for="dataa">Data:</label>
+          <input type="date" id="dataa" name="dataa" /><br />
+          <div class="botoes">
+            <button type="submit" class="btn-submit" id="enviar">Salvar</button>
+            <a href="/public/cautelaCelular.html" class="btn-submit">Voltar</a>
+            <button type="button" onclick="imprimir()" class="btn-submit">Imprimir</button>
+          </div>
+          <br>
+        </form>
+      </div>
+    </div>
+    <br>
+    <br>
+  </body>
+ <script src="/public/js/tablet.js"></script>
+<script src="/public/js/impressaoTablet.js"></script>
+<script src="/public/js/checkboxCelular.js"></script>
+
+
+</html>

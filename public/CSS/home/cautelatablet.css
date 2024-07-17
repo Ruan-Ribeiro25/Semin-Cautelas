@@ -1,0 +1,266 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 60px;
+}
+
+h1 {
+  color: #333;
+}
+
+h2 {
+  margin-top: 30px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.custom-radio {
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+}
+
+.custom-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.custom-radio:hover .checkmark {
+  background-color: #ccc;
+}
+
+.custom-radio input[type="radio"]:checked + .checkmark {
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-radio input[type="radio"]:checked + .checkmark:after {
+  display: block;
+}
+
+.custom-radio .checkmark:after {
+  top: 5px;
+  left: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+#cabecalho{
+  text-align: center;
+  margin-top: 0%;
+  background-color: white;
+  padding-top: 5%;
+  height: 50%;
+  z-index: 2;
+  height: 20%;
+ }
+ 
+ #divisao{
+     text-align: left;
+     padding-left: 95%;
+     /* background-color: rgb(53, 122, 252); */
+     /* padding-top: 0.05%;
+     padding-bottom: 0.05%; */
+     margin-top: 5%;
+     border-radius: 15px;
+     z-index: 1;
+ }
+ 
+ 
+   #smartphoneSection{
+     background-color: whitesmoke;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+     border-radius: 10px;
+     margin-top: 70px;
+     margin-bottom: -63px;
+     padding: -1px;
+     
+ }
+ 
+ .matricula{
+     margin-bottom: 10px;
+ }
+ 
+ 
+ 
+ input[type="text"] {
+     /* ... */
+     border: none;
+     border-bottom: 2px solid #999;
+     background: transparent;
+     outline: none;
+     transition: border-color 0.4s ease-in-out;
+    border-radius: 0%;
+    width: 30%;
+    margin-bottom: 6%;
+   }
+   
+   input[type="email"] {
+     /* ... */
+     border: none;
+     border-bottom: 2px solid #999;
+     background: transparent;
+     outline: none;
+     transition: border-color 0.4s ease-in-out;
+ 
+   }
+ 
+   input[type="text"]::before {
+     content: "";
+     display: block;
+     height: 0;
+     background-color: #e4e4e4;
+     transition: background-size 0.5s ease-in-out;
+     background-size: 0% 2px;
+     background-position: 100% 100%;
+   }
+   input[type="email"]::before {
+     content: "";
+     display: block;
+     height: 0;
+     background-color: #999;
+     transition: background-size 0.5s ease-in-out;
+     background-size: 0% 2px;
+     background-position: 100% 100%;
+   }
+   
+   input[type="text"]:focus {
+     /* ... */
+     border-color: dodgerblue;
+   }
+   input[type="email"]:focus {
+     /* ... */
+     border-color: dodgerblue;
+   }
+   
+   input[type="text"]:focus::before {
+     background-size: 100% 2px;
+     background-position: 0% 100%;
+   }
+   input[type="email"]:focus::before {
+     background-size: 100% 2px;
+     background-position: 0% 100%;
+   }
+   
+ #departamento{
+  width: 60%;
+ }
+ #nome, #funcao, #secretaria, #email, #patrimonio, #tipoCautela, #numero, #objetivo{
+   width: 60%;
+   margin-bottom: 6%;
+ }
+ select{
+     margin-top: 1%;
+ }
+ 
+ div{
+     margin-top: 2%;
+ }
+ 
+ .btn-submit{
+     color: white;
+     background-color: #1e90ff;
+     padding: 10px 20px 10px 20px;
+     border: black;
+     border-radius: 7.5px;
+     font-size: 18px;
+     margin-right: 83px;
+     text-decoration: none;  
+ }
+ 
+ #enviar{
+  margin-left: 6%;
+ }
+
+ #numeroCautela{
+   width: 55px;
+ }
+ 
+ #dataa {
+   border: 1px solid #ccc;
+   padding: 8px;
+   transition: border-color 0.3s ease-in-out;
+   margin-top: 2%;
+   margin-right: 4%;
+   }
+ 
+ #dataa:hover,
+ #dataa:focus {
+   border-color: #999;
+   outline: none;
+   box-shadow: 0 0 5px #999;
+ }
+ body{
+   text-align: center;
+   z-index: 2;
+   padding: 0px;
+   /* background: dodgerblue; */
+ }
+ .cautelaForm{
+   position: fixed;
+ }
+
+ a.btn-submit1{
+  color: white;
+  background-color: #1e90ff;
+  padding: 10px 20px 10px 20px;
+  border: black;
+  border-radius: 7.5px;
+  margin-top: 18px;
+  font-size: 18px;
+  text-decoration: none;
+  margin-left: -70px;
+  text-decoration-line: none
+}
+
+@media (max-width: 767px) {
+  .container {
+      padding: 10px;
+  }
+}
+
+
+
+

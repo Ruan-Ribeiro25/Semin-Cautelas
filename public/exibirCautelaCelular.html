@@ -1,0 +1,551 @@
+<html>
+<head>
+  <link rel="stylesheet" href="/public/CSS/home/cautela.css">
+  <title>Cautelas</title>
+</head>
+<style>
+  :root{
+      --color-dark1: rgb(39, 39, 39);
+      --color-dark2: #2d2d2d;
+      --color-dark3: #414141;
+      --color-dark4: #1c1c1c;
+      --color-dark5: #343434;
+      --color-purple: #0c466d;
+  }
+  *{
+      margin: 0;
+      padding: 0;
+  }
+  body{
+      font-family: Arial, Helvetica, sans-serif;
+  }
+  .img_logo_header{
+      width: 135px;
+  }
+  .header,
+  .navigation_header{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+  }
+  .header{
+      justify-content: space-between;
+      padding: 0 10%;
+      height: 0.0em;
+      /* box-shadow: 1px 1px 4px var(--color-dark4); */
+  }
+  .navigation_header{
+      gap: 3em;
+      z-index: 2;
+  }
+  .content{
+      padding-top: 5em;
+      text-align: center;
+      height: 100vh;
+      transition: 1s;
+  }
+  .navigation_header a{
+      text-decoration: none;
+      color: var(--color-purple);
+      transition: 1s;
+      font-weight: bold;
+  }
+  .navigation_header a:hover{
+      color: var(--color-white);
+  }
+  .active{
+      background: var(--color-dark3);
+      padding: 10px;
+      border-radius: 10px;
+  }
+  .btn_icon_header{
+      background: transparent;
+      border: none;
+      color: var(--color-white);
+      cursor: pointer;
+      display: none;
+  }
+  #cautela-celular {
+    margin-top: 100px;
+  }
+  @media screen and (max-width: 768px) {
+      .navigation_header{
+          position: absolute;
+          flex-direction: column !important;
+          top: 0;
+          background: var(--color-dark5);
+          height: 100%;
+          width: 35vw;
+          padding: 1em;
+          animation-duration: 1s;
+          margin-left: -100vw;
+      }
+      .btn_icon_header{
+          display: block;
+      }
+  }
+  @keyframes showSidebar {
+      from {margin-left: -100vw;}
+      to {margin-left: -10vw;}
+  }
+</style>
+</head>
+<body id="body">
+<div class="header" id="header">
+  <button onclick="toggleSidebar()" class="btn_icon_header">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+      </svg>
+  </button>
+  <div class="logo_header">
+    <a href="/public/home.html"> <img src="img/logo-att.png" alt="Logo.att" class="img_logo_header"></a>
+  </div>
+  <div class="navigation_header" id="navigation_header">
+      <button onclick="toggleSidebar()" class="btn_icon_header">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+          </svg>
+      </button>
+      <a href="/public/cautelaCelular.html"> Registrar Nova Cautela</a>
+      <a href="/public/exibirCautelaCelular.html">Cautela Celulares</a>
+      <a href="/public/exibirCautelaNotebook.html">Cautela de Notebook</a>
+      <a href="/public/exibirCautelaTablet.html">Cautela de Tablet</a>
+      <a href="/public/exibirCautelaOutros.html">Outras Cautelas</a>
+  </div>
+</div>
+<div id="Cautela-celular">
+
+  <h1>Cautela Celular</h1>
+</div>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Digite o ID da cautela" oninput="searchCautela()">
+  </div>
+  
+  
+  
+  <table id="cautelasTable">
+    <tr>
+      <th>Número da Cautela</th>
+      <th>  Nome  </th>
+      <th>Função</th>
+      <th>Departamento</th>
+      <th>Secretaria</th>
+      <th>Email</th>
+      <th>Retirada De Aparelho e Chip</th>
+      <th>Retirada De Aparelho</th>
+      <th>Retirada De Chip</th>
+      <th>Devolução de Aparelho e Chip</th>
+      <th>Devolução de Aparelho</th>
+      <th>Devolução de Chip</th>
+      <th>Outros</th>
+      <th>Discriminação</th>
+      <th>Patrimônio</th>
+      <th>Número de Chip</th>
+      <th>Matricula</th>
+      <th>Data</th>
+      <th></th>
+      <!-- Adicione outras colunas conforme necessário -->
+    </tr>
+    <tbody id="cautelasTableBody"></tbody>
+  </table>
+
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span onclick="closeModal()" class="close"></span>
+      <h2>Editar Cautela</h2>
+      <form id="editForm">
+    
+        <input type="hidden" id="editId">
+        <label for="editNome">Nome:</label>
+        <input type="text" id="editNome">
+        <label for="editFuncao">Função:</label>
+        <input type="text" id="editFuncao">
+        <label for="editdepartamento">Departamento:</label>
+        <input type="text" id="editdepartamento" /><br />
+
+        <label for="editsecretaria">Secretaria:</label>
+        <select id="editsecretaria" >
+          <option value="secretaria">Clique para Selecionar</option>
+          <option value="SEMAD">Secretaria Municipal de Administração</option>
+          <option value="SEMAG">Secretaria Municipal de Agricultura</option>
+          <option value="SEMICT">Secretaria Municipal de Ciências, Tecnologia, Indústria e Comércio</option>
+          <option value="SECOM">Secretaria Municipal de Comunicação Social</option>
+          <option value="SMCGG">Secretaria Municipal de Coordenação Geral e Gestão</option>
+          <option value="SECUT">Secretaria Municipal de Cultura e Turismo</option>
+          <option value="SEMDS">Secretaria Municipal de Defesa Social</option>
+          <option value="SEMAS">Secretaria Municipal de Desenvolvimento Social</option>
+          <option value="SEMED">Secretaria Municipal de Educação</option>
+          <option value="SEMEL">Secretaria Municipal de Esportes e Lazer</option>
+          <option value="SEMFI">Secretaria Municipal de Finanças</option>
+          <option value="SEMUG">Secretaria Municipal de Governo</option>
+          <option value="SEMIN">Secretaria Municipal de Informática</option>
+          <option value="SEMEA">Secretaria Municipal de Meio Ambiente</option>
+          <option value="SEMUP">Secretaria Municipal de Planejamento</option>
+          <option value="SEMOB">Secretaria Municipal de Obras</option>
+          <option value="SEMSA">Secretaria Municipal de Saúde</option>
+          <option value="PROJU">Procuradoria Juridica</option>
+        </select>
+
+        <label for="editemail">Email:</label>
+        <input type="email" id="editemail"  /><br />
+
+            <input
+              id="retiradadeaparelhoechip"
+              type="radio"
+              name="retiradadeaparelhoechip"
+              value="retiradadeaparelhoechip"
+             
+            />
+            <label for="retiradadeaparelhoechip"
+              >Reirada de Aparelho e Chip</label
+            >
+            <input
+              id="retiradadeaparelho"
+              type="radio"
+              name="retiradadeaparelho"
+              value="retiradadeaparelho"
+             
+            />
+            <label for="retiradadeaparelho">Retirada de Aparelho</label>
+  
+          
+    
+            <input id="retiradadechip" type="radio" value="retiradadechip" name="retiradadechip" />
+            <label for="retiradadechip">Retirada de Chip</label>
+     
+
+       
+            <input
+              id="devolucaodeaparelhoechip"
+              type="radio"
+              name="devolucaodeaparelhoechip"
+              value="devolucaodeaparelhoechip"
+            
+            />
+            <label for="devolucaodeaparelhoechip"
+              >Devolução de Aparelho e Chip</label
+            >
+
+
+     
+            <input
+              id="devolucaodeaparelho"
+              type="radio"
+              name="devolucaodeaparelho"
+              value="devolucaodeaparelho"
+             
+            />
+            <label for="devolucaodeaparelho">Devolução de Aparelho</label>
+    
+            <input id="devolucaodechip" type="radio" value="devolucaodechip" name="devolucaodechip"/>
+            <label for="devolucaodechip">Devolução de Chip</label>
+  
+ 
+            <label for="editoutros">Outros</label>
+            <input id="editoutros" type="text" />
+    
+
+        <label for="edittipoCautela">Discriminação</label>
+        <input type="text" id="edittipoCautela" /><br />
+
+        <label for="editpatrimonio">Patrimônio:</label>
+        <input type="text" id="editpatrimonio" /><br />
+
+        <label for="editnumerochip">Número do Chip:</label>
+        <input type="text" id="editnumerochip" /><br />
+
+        <label for="editmatricula">Matrícula:</label>
+        <input type="text" id="editmatricula" /><br />
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+  </div>
+</body>
+<script>
+function searchCautela() {
+  const searchValue = document.getElementById('searchInput').value.toLowerCase();
+  const tableBody = document.getElementById('cautelasTableBody');
+  const rows = tableBody.getElementsByTagName('tr');
+
+  for (let i = 0; i < rows.length; i++) {
+    const cells = rows[i].getElementsByTagName('td');
+    let found = false;
+
+    for (let j = 0; j < cells.length; j++) {
+      const cellValue = cells[j].textContent.toLowerCase();
+      if (cellValue.includes(searchValue)) {
+        found = true;
+        break;
+      }
+    }
+
+    if (found) {
+      rows[i].style.display = '';
+    } else {
+      rows[i].style.display = 'none';
+    }
+  }
+}
+
+
+
+
+function formatDate(date) {
+  const formattedDate = new Date(date).toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+  return formattedDate;
+}
+
+  function fetchCautelas() {
+    fetch('/cautelasCelulares') // Faz a requisição para a rota do servidor
+      .then(response => response.json()) // Converte a resposta para JSON
+      .then(cautelas => {
+        const tableBody = document.getElementById('cautelasTableBody');
+        cautelas.forEach((cautela, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+        <td class="id-column">${cautela.id}</td>
+          <td class="nome-column">${cautela.nome}</td>
+          <td class="funcao-column">${cautela.funcao}</td>
+          <td class="departamento-column">${cautela.departamento}</td>
+          <td class="secretaria-column">${cautela.secretaria}</td>
+          <td class="email-column">${cautela.email}</td>
+          <td class="retirada-aparelho-chip-column">${cautela.retiradadeaparelhoechip}</td>
+          <td class="retirada-aparelho-column">${cautela.retiradadeaparelho}</td>
+          <td class="retirada-chip-column">${cautela.retiradadechip}</td>
+          <td class="devolucao-aparelho-chip-column">${cautela.devolucaodeaparelhoechip}</td>
+          <td class="devolucao-aparelho-column">${cautela.devolucaodeaparelho}</td>
+          <td class="devolucao-chip-column">${cautela.devolucaodechip}</td>
+          <td class="outros-column">${cautela.outros}</td>
+          <td class="tipo-cautela-column">${cautela.tipoCautela}</td>
+          <td class="patrimonio-column">${cautela.patrimonio}</td>
+          <td class="numero-chip-column">${cautela.numeroChip}</td>
+          <td class="matricula-column">${cautela.matricula}</td>
+          <td class="data-column">${cautela.dataa}</td>
+          <td>
+            <button class = 'btn-imprimir'  onclick="imprimirCautela(${index})">Imprimir</button>
+            <button onclick="openEditModal(${cautela.id})">Editar</button>
+            <button onclick="deleteCautela(${cautela.id})">Excluir</button>
+          </td>
+  
+        `;
+        tableBody.appendChild(row);
+      });
+    })
+    .catch(error => console.error('Erro ao buscar dados:', error));
+}
+
+function openEditModal(id) {
+  // Fazer uma requisição para buscar os detalhes da cautela específica
+  fetch(`/cautelasCelulares/${id}`)
+    .then(response => response.json())
+    .then(cautela => {
+      const modal = document.getElementById('editModal');
+      const nomeInput = document.getElementById('editNome');
+      const funcaoInput = document.getElementById('editFuncao');
+      const departamentoInput = document.getElementById('editdepartamento');
+      const secretariaInput = document.getElementById('editsecretaria');
+      const emailInput = document.getElementById('editemail');
+      const retiradadeaparelhoechipInput = document.getElementById('retiradadeaparelhoechip');
+      const retiradadeaparelhoInput = document.getElementById('retiradadeaparelho');
+      const retiradadechipInput = document.getElementById('retiradadechip');
+      const devolucaodeaparelhoechipInput = document.getElementById('devolucaodeaparelhoechip');
+      const devolucaodeaparelhoInput = document.getElementById('devolucaodeaparelho');
+      const devolucaodechipInput = document.getElementById('devolucaodechip');
+      const outrosInput = document.getElementById('editoutros');
+      const tipoCautelaInput = document.getElementById('edittipoCautela');
+      const patrimonioInput = document.getElementById('editpatrimonio');
+      const numeroInput = document.getElementById('editnumerochip');
+      const matriculaInput = document.getElementById('editmatricula');
+
+ 
+      nomeInput.value = cautela.nome;
+      funcaoInput.value = cautela.funcao;
+      departamentoInput.value = cautela.departamento;
+      secretariaInput.value =  cautela.secretaria;
+      emailInput.value = cautela.email;
+      retiradadeaparelhoechipInput.value = cautela.retiradadeaparelhoechip;
+      retiradadeaparelhoInput.value =  cautela.retiradadeaparelho;
+      retiradadechipInput.value = cautela.retiradadechip ;
+      devolucaodeaparelhoechipInput.value = cautela.devolucaodeaparelhoechip;
+      devolucaodeaparelhoInput.value = cautela.devolucaodeaparelho;
+      devolucaodechipInput.value = cautela.devolucaodechip ;
+      outrosInput.value = cautela.outros;
+      tipoCautelaInput.value = cautela.tipoCautela;
+      patrimonioInput.value = cautela.patrimonio;
+      numeroInput.value = cautela.numeroChip;
+      matriculaInput.value = cautela.matricula;
+
+  
+      modal.onsubmit = e => {
+        e.preventDefault();
+
+        // Obter os valores atualizados dos campos do modal
+        const updatedCautela = {
+          nome: nomeInput.value,
+          funcao: funcaoInput.value,
+          departamento: departamentoInput.value,                                    
+          secretaria: secretariaInput.value,                                         
+          email: emailInput.value,                                                 
+          retiradadeaparelhoechip: retiradadeaparelhoechipInput.checked ? "x" : "",       
+          retiradadeaparelho: retiradadeaparelhoInput.checked  ? "x" : "",                                    
+          retiradadechip: retiradadechipInput.checked  ? "x" : "",                             
+          devolucaodeaparelhoechip: devolucaodeaparelhoechipInput.checked  ? "x" : "",              
+          devolucaodeaparelho: devolucaodeaparelhoInput.checked  ? "x" : "",                   
+          devolucaodechip: devolucaodechipInput.checked  ? "x" : "",                              
+          outros: outrosInput.value,                                             
+          tipoCautela: tipoCautelaInput.value,                                     
+          patrimonio: patrimonioInput.value,                                         
+          matricula: matriculaInput.value,             
+          numeroChip: numeroInput.value,                                               
+        };
+
+        // Enviar uma requisição PUT para atualizar a cautela
+        fetch(`/cautelasCelulares/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedCautela),
+        })
+          .then(response => response.json())
+          .then(updatedCautela => {
+            // Atualizar os valores na tabela com os dados atualizados
+            const row = document.getElementById(`cautelaRow-${id}`);
+            row.getElementsByClassName('.nome-column').textContent = updatedCautela.nome;
+            row.querySelector('.funcao-column').textContent = updatedCautela.funcao;
+            row.querySelector('.departamento-column').textContent = updatedCautela.departamento;
+            row.querySelector('.secretaria-column').textContent = updatedCautela.secretaria;
+            row.querySelector('.email-column').textContent = updatedCautela.email;
+            row.querySelector('.retirada-aparelho-chip-column').textContent = updatedCautela.retiradadeaparelhoechip;
+            row.querySelector('.retirada-aparelho-column').textContent = updatedCautela.retiradadeaparelho;
+            row.querySelector('.retirada-chip-column').textContent = updatedCautela.retiradadechip;
+            row.querySelector('.devolucao-aparelho-chip-colum').textContent = updatedCautela.devolucaodeaparelhoechip;
+            row.querySelector('.devolucao-aparelho-column').textContent = updatedCautela.devolucaodeaparelho;
+            row.querySelector('.devolucao-chip-column').textContent = updatedCautela.devolucaodechip;
+            row.querySelector('.outros-colum').textContent = updatedCautela.outros;
+            row.querySelector('.tipo-cautela-column').textContent = updatedCautela.tipoCautela;
+            row.querySelector('.patrimonio-column').textContent = updatedCautela.patrimonio;
+            row.querySelector('.numero-chip-column').textContent = updatedCautela.numeroChip;
+            row.querySelector('.matricula-column').textContent = updatedCautela.matricula;
+            
+            // Fechar o modal
+            closeModal('editModal');
+          })
+          .catch(error => console.error('Erro ao atualizar a cautela:', error));
+      };
+
+      // Abrir o modal
+      openModal('editModal');
+    })
+    .catch(error => console.error('Erro ao buscar detalhes da cautela:', error));
+}
+
+// Função para fechar o modal
+function closeModal(modalId) {
+  const modal = document.getElementById('editModal');
+  modal.style.display = 'none';
+}
+
+// Função para abrir o modal
+function openModal(modalId) {
+  const modal = document.getElementById(modalId);
+  modal.style.display = 'block';
+}
+
+// Função para excluir uma cautela
+function deleteCautela(id) {
+  if (confirm('Deseja excluir esta cautela?')) {
+    fetch(`/cautelasCelulares/${id}`, { method: 'DELETE' })
+      .then(response => {
+        if (response.status === 204) {
+          // Remover a linha da tabela correspondente à cautela excluída
+          // const row = document.getElementById(`cautelaRow-${id}`);
+          row.remove();
+        } else {
+          console.error('Erro ao excluir a cautela:', response.statusText);
+        }
+      })
+      .catch(error => console.error('Erro ao excluir a cautela:', error));
+  }
+}
+
+function imprimirCautela(index) {
+  fetch('/cautelasCelulares') // Faz a requisição para a rota do servidor
+    .then(response => response.json()) // Converte a resposta para JSON
+    .then(cautelas => {
+      const cautela = cautelas[index];
+      // let Retirada = "";
+      // if (cautela.retiradadeaparelhoechip != "") {
+      //   Retirada = "rebeci";}
+      //   else if(cautela.retiradadeaparelho != ""){
+      //     Retirada = "recebi"
+      //   }else if(cautela.retiradadechip = ""){
+      //     Retirada = "recebi"
+      //   }else if(cautela.devolucaodeaparelhoechip = ""){
+      //     Retirada = "devolvi"
+      //   }else if(cautela.devolucaodeaparelho = ""){
+      //     Retirada = "devolvi"
+      //   }else if(cautela.devolucaodechip = ""){
+      //     Retirada = "devolvi"
+      //   }
+      
+      
+      const conteudoHTML = `
+        <html>
+          <head>
+            <title>Registro Oficial de Cautelas</title>
+            <style>
+              p { font-weight: arial; }
+            </style>
+            <p><strong> REGISTRO DE CAUTELA N°</strong> ${cautela.numeroCautela}</p>
+            <p><strong>Recebedor:</strong> ${cautela.nome}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Matrícula:</strong> ${cautela.matricula}</p>
+            <p><strong>Secretaria:</strong> ${cautela.secretaria}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Departamento: </strong>${cautela.departamento}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Função: </strong>${cautela.funcao} </p>
+            <p><strong>Email:</strong> ${cautela.email}</p>
+            <p><strong>Discriminação:</strong> ${cautela.tipoCautela}</p>
+            <p><strong>Patrimonio ou IMEI:</strong> ${cautela.patrimonio}</p>
+            <p><strong>Número do Chip ou N° de Série:</strong> ${cautela.numeroChip}</p>
+            <p>Retirada de Aparelho e Chip [ ${cautela.retiradadeaparelhoechip} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Retirada de Aparelho [ ${cautela.retiradadeaparelho}] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Retirada de Chip [ ${cautela.retiradadechip}] </p>
+            <p>Devolução de Aparelho e Chip [ ${cautela.devolucaodeaparelhoechip} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Devolução de Aparelho [ ${cautela.devolucaodeaparelho} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Devolução de Chip [ ${cautela.devolucaodechip}]</p>
+            <p><strong>DECLARO</strong> que recebi o(s) equipamento(s) aqui descrito(s) e estar plenamente ciente da responsabilidade por mim assumida quanto ao recebimento e a utilização do(s) mesmo(s), bem como a não cessão ou transferência destes a terceiros.
+              <br>
+            Por fim, <strong>DECLARO</strong> estar ciente de que o descumprimento das obrigações por mim assumidas, poderão implicar na aplicação das penalidades previstas na legislação de regência, tanto no âmbito administrativo, cível e criminal</p>
+            <p>Data: ${cautela.dataa}</p>
+            <p>Assinatura:__________________________________</p>
+            <p>-----------------------------------------------------------------------------------------------------------------------------</p>
+            <p><strong> REGISTRO DE CAUTELA N°</strong> ${cautela.numeroCautela}</p>
+            <p><strong>Recebedor:</strong> ${cautela.nome}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Matrícula:</strong> ${cautela.matricula}</p>
+            <p><strong>Secretaria:</strong> ${cautela.secretaria}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Departamento: </strong>${cautela.departamento}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Função: </strong>${cautela.funcao} </p>
+            <p><strong>Email:</strong> ${cautela.email}</p>
+            <p><strong>Discriminação:</strong> ${cautela.tipoCautela}</p>
+            <p><strong>Patrimonio ou IMEI:</strong> ${cautela.patrimonio}</p>
+            <p><strong>Número do Chip ou N° de Série:</strong> ${cautela.numeroChip}</p>
+            <p>Retirada de Aparelho e Chip [ ${cautela.retiradadeaparelhoechip} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Retirada de Aparelho [ ${cautela.retiradadeaparelho}] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Retirada de Chip [ ${cautela.retiradadechip}] </p>
+            <p>Devolução de Aparelho e Chip [ ${cautela.devolucaodeaparelhoechip} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Devolução de Aparelho [ ${cautela.devolucaodeaparelho} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Devolução de Chip [ ${cautela.devolucaodechip}]</p>
+            <p><strong>DECLARO</strong> que recebi o(s) equipamento(s) aqui descrito(s) e estar plenamente ciente da responsabilidade por mim assumida quanto ao recebimento e a utilização do(s) mesmo(s), bem como a não cessão ou transferência destes a terceiros.
+              <br>
+            Por fim, <strong>DECLARO</strong> estar ciente de que o descumprimento das obrigações por mim assumidas, poderão implicar na aplicação das penalidades previstas na legislação de regência, tanto no âmbito administrativo, cível e criminal</p>
+            <p>Data: ${cautela.dataa}</p>
+            <p>Assinatura:__________________________________</p>
+          </body>
+        </html>
+      `;
+      const janelaImpressao = window.open('', '_blank');
+      janelaImpressao.document.open();
+      janelaImpressao.document.write(conteudoHTML);
+      janelaImpressao.document.close();
+      janelaImpressao.print();
+      janelaImpressao.addEventListener('afterprint', function() {
+        janelaImpressao.close();
+      });
+    })
+    .catch(error => console.error('Erro ao buscar dados:', error));
+}
+
+// Chamar a função fetchCautelas para buscar e exibir as cautelas iniciais
+fetchCautelas();
+</script>
+</html>

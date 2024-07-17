@@ -1,0 +1,223 @@
+<html>
+<head>
+  <link rel="stylesheet" href="/public/CSS/home/cautela.css">
+  <title>Cautelas</title>
+</head>
+<body>
+  <style>
+    :root{
+        --color-dark1: rgb(39, 39, 39);
+        --color-dark2: #2d2d2d;
+        --color-dark3: #414141;
+        --color-dark4: #1c1c1c;
+        --color-dark5: #343434;
+        --color-purple: #0c466d;
+    }
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .img_logo_header{
+        width: 135px;
+    }
+    .header,
+    .navigation_header{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .header{
+        justify-content: space-between;
+        padding: 0 10%;
+        height: 0.0em;
+
+    }
+    .navigation_header{
+        gap: 3em;
+        z-index: 2;
+    }
+    .content{
+        padding-top: 5em;
+        text-align: center;
+        height: 100vh;
+        transition: 1s;
+    }
+    .navigation_header a{
+        text-decoration: none;
+        color: var(--color-purple);
+        transition: 1s;
+        font-weight: bold;
+    }
+    .navigation_header a:hover{
+        color: var(--color-white);
+    }
+    .active{
+        background: var(--color-dark3);
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .btn_icon_header{
+        background: transparent;
+        border: none;
+        color: var(--color-white);
+        cursor: pointer;
+        display: none;
+    }
+    #Cautela-notebook {
+      margin-top: 100px;
+    }
+    @media screen and (max-width: 768px) {
+        .navigation_header{
+            position: absolute;
+            flex-direction: column !important;
+            top: 0;
+            background: var(--color-dark5);
+            height: 100%;
+            width: 35vw;
+            padding: 1em;
+            animation-duration: 1s;
+            margin-left: -100vw;
+        }
+        .btn_icon_header{
+            display: block;
+        }
+    }
+    @keyframes showSidebar {
+        from {margin-left: -100vw;}
+        to {margin-left: -10vw;}
+    }
+</style>
+</head>
+<body id="body">
+<div class="header" id="header">
+    <button onclick="toggleSidebar()" class="btn_icon_header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+    </button>
+    <div class="logo_header">
+      <a href="/public/home.html"> <img src="img/logo-att.png" alt="Logo.att" class="img_logo_header"></a>
+    </div>
+    <div class="navigation_header" id="navigation_header">
+        <button onclick="toggleSidebar()" class="btn_icon_header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+        </button>
+        <a href="/public/cautelaCelular.html"> Registrar Nova Cautela</a>
+        <a href="/public/exibirCautelaCelular.html">Cautela Celulares</a>
+        <a href="/public/exibirCautelaNotebook.html">Cautela de Notebook</a>
+        <a href="/public/exibirCautelaTablet.html">Cautela de Tablet</a>
+        <a href="/public/exibirCautelaOutros.html">Outras Cautelas</a>
+    </div>
+</div>
+<div id="Cautela-notebook">
+
+  <h1>Cautela de Notebook</h1>
+</div>
+  
+  
+
+  
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Digite o ID da cautela" oninput="searchCautela()">
+  </div>
+  <table id="cautelasTable">
+    <tr>
+      <th>Número da Cautela</th>
+      <th>Nome</th>
+      <th>Função</th>
+      <th>Departamento</th>
+      <th>Secretaria</th>
+      <th>Email</th>
+      <th>Retirada De Notebook</th>
+      <th>Devolução  De Notebook</th>
+      <th>Tipo Cautela</th>
+      <th>Patrimônio</th>
+      <th>Matricula</th>
+      <th>Data</th>
+      <!-- Adicione outras colunas conforme necessário -->
+    </tr>
+    <tbody id="cautelasTableBody"></tbody>
+  </table>
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span onclick="closeModal()" class="close">&times;</span>
+      <h2>Editar Cautela</h2>
+      <form id="editForm">
+        <!-- <label for="editId">Id</label> -->
+        <input type="hidden" id="editId">
+        <label for="editNome">Nome:</label>
+        <input type="text" id="editNome">
+        <label for="editFuncao">Função:</label>
+        <input type="text" id="editFuncao">
+        <label for="editdepartamento">Departamento:</label>
+        <input type="text" id="editdepartamento" /><br />
+
+        <label for="editsecretaria">Secretaria:</label>
+        <select id="editsecretaria" >
+          <option value="secretaria">Clique para Selecionar</option>
+          <option value="SEMAD">Secretaria Municipal de Administração</option>
+          <option value="SEMAG">Secretaria Municipal de Agricultura</option>
+          <option value="SEMICT">Secretaria Municipal de Ciências, Tecnologia, Indústria e Comércio</option>
+          <option value="SECOM">Secretaria Municipal de Comunicação Social</option>
+          <option value="SMCGG">Secretaria Municipal de Coordenação Geral e Gestão</option>
+          <option value="SECUT">Secretaria Municipal de Cultura e Turismo</option>
+          <option value="SEMDS">Secretaria Municipal de Defesa Social</option>
+          <option value="SEMAS">Secretaria Municipal de Desenvolvimento Social</option>
+          <option value="SEMED">Secretaria Municipal de Educação</option>
+          <option value="SEMEL">Secretaria Municipal de Esportes e Lazer</option>
+          <option value="SEMFI">Secretaria Municipal de Finanças</option>
+          <option value="SEMUG">Secretaria Municipal de Governo</option>
+          <option value="SEMIN">Secretaria Municipal de Informática</option>
+          <option value="SEMEA">Secretaria Municipal de Meio Ambiente</option>
+          <option value="SEMUP">Secretaria Municipal de Planejamento</option>
+          <option value="SEMOB">Secretaria Municipal de Obras</option>
+          <option value="SEMSA">Secretaria Municipal de Saúde</option>
+          <option value="PROJU">Procuradoria Juridica</option>
+        </select>
+
+        <label for="editemail">Email:</label>
+        <input type="email" id="editemail"  /><br />
+
+            <input
+              id="editretiradadenotebook"
+              type="radio"
+              name="editretiradadenotebook"
+              value="editretiradadenotebook"
+             
+            />
+            <label for="editretiradadenotebook"
+              >Retirada de Notebook</label>
+            <input
+              id="editdevolucaodenotebook"
+              type="radio"
+              name="editdevolucaodenotebook"
+              value="editdevolucaodenotebook"
+             
+            />
+            <label for="editdevolucaodenotebook">Devolução de Notebook</label>
+  
+      
+        <label for="edittipoCautela">Tipo Cautela</label>
+        <input type="text" id="edittipoCautela" /><br />
+
+        <label for="editpatrimonio">Patrimônio:</label>
+        <input type="text" id="editpatrimonio" /><br />
+
+      
+
+        <label for="editmatricula">Matrícula:</label>
+        <input type="text" id="editmatricula" /><br />
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+  </div>
+</body>
+ <script src="/public/js/cautelaNotebook.js"></script>
+</body>
+<!-- <script src="/public/js/cautelaNotebook.js"></script> -->
+</html>
